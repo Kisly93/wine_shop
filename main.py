@@ -3,6 +3,7 @@ from jinja2 import Environment, FileSystemLoader, select_autoescape
 import datetime
 import pandas as pd
 from collections import defaultdict
+import argparse
 
 FOUNDING_YEAR = 1912
 
@@ -27,10 +28,10 @@ def main():
         autoescape=select_autoescape(['html', 'xml'])
     )
     wines = pd.read_excel('wine.xlsx', na_values='nan', keep_default_na=False)
-    wines_dict = wines.to_dict(orient='records')
+    wines = wines.to_dict(orient='records')
     wines_categories = defaultdict(list)
 
-    for wine in wines_dict:
+    for wine in wines:
         wine_category = list(wine.keys())[0]
         wines_categories[wine[wine_category]].append(wine)
 
