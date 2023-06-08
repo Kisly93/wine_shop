@@ -6,9 +6,6 @@ from collections import defaultdict
 
 FOUNDING_YEAR = 1912
 
-now_time = datetime.datetime.now()
-year = now_time.year - FOUNDING_YEAR
-
 
 def generates_word_form(year):
     if year % 100 in [11, 12, 13, 14]:
@@ -23,6 +20,8 @@ def generates_word_form(year):
 
 
 def main():
+    now_time = datetime.datetime.now()
+    year = now_time.year - FOUNDING_YEAR
     env = Environment(
         loader=FileSystemLoader('.'),
         autoescape=select_autoescape(['html', 'xml'])
