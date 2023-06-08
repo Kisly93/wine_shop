@@ -7,12 +7,12 @@ from collections import defaultdict
 FOUNDING_YEAR = 1912
 
 
-def generates_word_form(year):
-    if year % 100 in [11, 12, 13, 14]:
+def generates_word_form(winery_age):
+    if winery_age % 100 in [11, 12, 13, 14]:
         word_form = 'лет'
-    elif year % 10 == 1:
+    elif winery_age % 10 == 1:
         word_form = 'год'
-    elif year % 10 in [2, 3, 4]:
+    elif winery_age % 10 in [2, 3, 4]:
         word_form = 'года'
     else:
         word_form = 'лет'
@@ -21,7 +21,7 @@ def generates_word_form(year):
 
 def main():
     now_time = datetime.datetime.now()
-    year = now_time.year - FOUNDING_YEAR
+    winery_age = now_time.year - FOUNDING_YEAR
     env = Environment(
         loader=FileSystemLoader('.'),
         autoescape=select_autoescape(['html', 'xml'])
@@ -36,7 +36,7 @@ def main():
 
     template = env.get_template('template.html')
     rendered_page = template.render(
-        age_now=f"Уже {year} {generates_word_form(year)} с нами",
+        age_now=f"Уже {winery_age} {generates_word_form(winery_age)} с нами",
         wines=wines_categories
     )
     with open('index.html', 'w', encoding="utf8") as file:
