@@ -27,7 +27,7 @@ def main():
         loader=FileSystemLoader('.'),
         autoescape=select_autoescape(['html', 'xml'])
     )
-    wines = pd.read_excel('wine3.xlsx', na_values='nan', keep_default_na=False)
+    wines = pd.read_excel('wine.xlsx', na_values='nan', keep_default_na=False)
     wines_dict = wines.to_dict(orient='records')
     wines_categories = defaultdict(list)
 
