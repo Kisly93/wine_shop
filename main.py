@@ -4,6 +4,7 @@ import datetime
 import pandas as pd
 from collections import defaultdict
 import argparse
+from environs import Env
 
 FOUNDING_YEAR = 1912
 
@@ -21,13 +22,20 @@ def generates_word_form(winery_age):
 
 
 def main():
+    env = Env()
+    env.read_env()
+    file_path = env('FILE_PATH')
     now_time = datetime.datetime.now()
     winery_age = now_time.year - FOUNDING_YEAR
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--file_path', default=file_path,
+                        help='Путь к файлу данных')
+    args = parser.parse_args()
     env = Environment(
         loader=FileSystemLoader('.'),
         autoescape=select_autoescape(['html', 'xml'])
     )
-    wines = pd.read_excel('wine.xlsx', na_values='nan', keep_default_na=False)
+    wines = pd.read_excel(args.file_path, na_values='nan', keep_default_na=False)
     wines = wines.to_dict(orient='records')
     wines_categories = defaultdict(list)
 
