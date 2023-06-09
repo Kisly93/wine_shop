@@ -32,8 +32,9 @@ def main():
     wines_categories = defaultdict(list)
 
     for wine in wines:
-        wine_category = list(wine.keys())[0]
+        wine_category = next(iter(wine))
         wines_categories[wine[wine_category]].append(wine)
+
 
     template = env.get_template('template.html')
     rendered_page = template.render(
